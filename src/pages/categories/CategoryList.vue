@@ -50,7 +50,6 @@ const removeCategory = (id) => {
 
 <template>
   <div class="max-w-4xl mx-auto p-6">
-    <!-- Заголовок и кнопка создания -->
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-3xl font-bold text-gray-800">Список категорий</h1>
       <button
@@ -61,7 +60,6 @@ const removeCategory = (id) => {
       </button>
     </div>
 
-    <!-- Таблица категорий -->
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
       <table class="w-full">
         <thead class="bg-gray-50 border-b">
@@ -105,7 +103,6 @@ const removeCategory = (id) => {
         </tbody>
       </table>
 
-      <!-- Пустое состояние -->
       <div
         v-if="categories.length === 0"
         class="text-center py-12 text-gray-500"
@@ -114,22 +111,21 @@ const removeCategory = (id) => {
       </div>
     </div>
 
-    <!-- Модальные окна (просто поверх контента) -->
     <div
       v-if="showCategoryEdit || showCategoryCreate"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 transition-opacity duration-200"
+      @click.self="
+        closeCategoryEdit();
+        closeCategoryCreate();
+      "
     >
-      <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4">
-        <CategoryEdit
-          v-if="showCategoryEdit"
-          :categoryData="categoryToEdit"
-          @close="closeCategoryEdit"
-        />
-        <CategoryCreate
-          v-else-if="showCategoryCreate"
-          @close="closeCategoryCreate"
-        />
-      </div>
+      <CategoryEdit
+        v-if="showCategoryEdit"
+        :categoryData="categoryToEdit"
+        @close="closeCategoryEdit"
+      />
+
+      <CategoryCreate v-if="showCategoryCreate" @close="closeCategoryCreate" />
     </div>
   </div>
 </template>

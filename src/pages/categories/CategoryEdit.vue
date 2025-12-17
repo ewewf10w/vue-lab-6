@@ -25,13 +25,16 @@ const saveCategory = (formData) => {
 </script>
 
 <template>
-  <div>
-    <div>
-      <h2>Редактировать категорию</h2>
+  <div class="bg-white rounded-xl shadow-xl p-8 max-w-md w-full">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+      Редактировать категорию
+    </h2>
 
-      <CategoryForm :model-value="categoryData" @submit="saveCategory" />
-
-      <button @click="$emit('close')">Отмена</button>
-    </div>
+    <CategoryForm
+      :model-value="props.categoryData"
+      :loading="mutation.isPending"
+      @submit="saveCategory"
+      @close="emit('close')"
+    />
   </div>
 </template>

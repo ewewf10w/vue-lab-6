@@ -20,11 +20,14 @@ const categoryCreate = (formData) => {
 </script>
 
 <template>
-  <div>
-    <div>
-      <h2>Создать категорию</h2>
+  <div class="bg-white rounded-xl shadow-xl p-8 max-w-md w-full">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Создать категорию</h2>
 
-      <CategoryForm :model-value="{ name: '' }" @submit="categoryCreate" />
-    </div>
+    <CategoryForm
+      :model-value="{ name: '' }"
+      :loading="mutation.isPending"
+      @submit="categoryCreate"
+      @close="emit('close')"
+    />
   </div>
 </template>
