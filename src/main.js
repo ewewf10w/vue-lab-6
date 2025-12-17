@@ -5,6 +5,7 @@ import router from "./router";
 import { VueQueryPlugin, QueryClient } from "@tanstack/vue-query";
 
 const app = createApp(App);
+const queryClient = new QueryClient();
 app.use(router);
 app.use(VueQueryPlugin, { queryClient });
 app.mount("#app");

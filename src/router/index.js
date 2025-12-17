@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import CategoryList from "../pages/categories/CategoryList.vue";
 import test from "../pages/test.vue";
+import CategoryList from "../pages/categories/CategoryList.vue";
 
 const routes = [
   { path: "/", redirect: "/posts" },
 
   { path: "/categories", component: CategoryList },
-  { path: "/test", component: Test },
+  { path: "/test", component: test },
 ];
 
 const router = createRouter({

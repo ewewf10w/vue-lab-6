@@ -2,7 +2,10 @@
 import { ref, watch } from "vue";
 
 const props = defineProps({
-  modelValue: Object,
+  modelValue: {
+    type: Object,
+    required: true,
+  },
 });
 
 const emit = defineEmits(["submit"]);
@@ -12,7 +15,9 @@ const form = ref({ name: "" });
 watch(
   () => props.modelValue,
   (newVal) => {
-    form.value = { ...newVal };
+    if (newVal) {
+      form.value = { ...newVal };
+    }
   },
   { immediate: true }
 );

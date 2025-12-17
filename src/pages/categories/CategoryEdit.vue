@@ -11,9 +11,10 @@ const emit = defineEmits(["close"]);
 
 const queryClient = useQueryClient();
 
-const mutation = useMutation(({ id, data }) => updateCategory(id, data), {
+const mutation = useMutation({
+  mutationFn: ({ id, data }) => updateCategory(id, data),
   onSuccess: () => {
-    queryClient.invalidateQuieries(["categories"]);
+    queryClient.invalidateQueries({ queryKey: ["categories"] });
     emit("close");
   },
 });

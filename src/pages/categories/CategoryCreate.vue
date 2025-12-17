@@ -6,9 +6,10 @@ import { useMutation, useQueryClient } from "@tanstack/vue-query";
 const emit = defineEmits(["close"]);
 const queryClient = useQueryClient();
 
-const mutation = useMutation(createCategory, {
+const mutation = useMutation({
+  mutationFn: createCategory,
   onSuccess: () => {
-    queryClient.invalidateQueries(["categories"]);
+    queryClient.invalidateQueries({ queryKey: ["categories"] });
     emit("close");
   },
 });
