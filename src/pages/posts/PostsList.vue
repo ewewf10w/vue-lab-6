@@ -61,7 +61,7 @@ const { getCategoryName } = useCategoriesMap();
             </div>
 
             <div v-if="post.image_url" class="flex justify-center mb-5">
-              <img :src="post.image_url" alt="" />
+              <img class="max-w-md" :src="post.image_url" alt="" />
             </div>
 
             <h3 class="text-xl font-semibold text-gray-900 mb-3">

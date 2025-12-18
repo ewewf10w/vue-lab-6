@@ -90,11 +90,14 @@ const submit = () => {
       <button
         type="button"
         @click="$emit('close')"
-        class="px-5 py-2 bg-gray-300 rounded"
+        class="px-5 py-2 bg-gray-300 hover:bg-gray-400 transition shadow-md rounded"
       >
         Отмена
       </button>
-      <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded">
+      <button
+        type="submit"
+        class="px-5 py-2 bg-blue-600 hover:bg-blue-700 transition shadow-md text-white rounded"
+      >
         Сохранить
       </button>
     </div>
