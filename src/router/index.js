@@ -13,7 +13,7 @@ const routes = [
   { path: "/test", component: test },
   { path: "/posts", component: PostsList },
   { path: "/posts/create", component: PostCreate },
-  { path: "/posts/:slug/edit", component: PostEdit, props: true },
+  { path: "/posts/:slug/edit", component: PostEdit },
 ];
 
 const router = createRouter({

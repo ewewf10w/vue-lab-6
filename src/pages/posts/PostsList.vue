@@ -1,32 +1,26 @@
 <script setup>
-import { ref, computed } from "vue";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/vue-query";
-import { fetchPosts, deletePost } from "../../api/posts";
+import { ref, computed, watch } from "vue";
+import { useQuery } from "@tanstack/vue-query";
+import { fetchPosts } from "../../api/posts";
 import { useCategoriesMap } from "../../composables/useCategoriesMap";
 
-const queryClient = useQueryClient();
-
 const search = ref("");
+const debouncedSearch = ref("");
+
+let timeout;
+watch(search, (val) => {
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    debouncedSearch.value = val;
+  }, 500);
+});
 
 const postsQuery = useQuery({
-  queryKey: ["posts", search],
-  queryFn: () => fetchPosts(search.value),
+  queryKey: ["posts", debouncedSearch],
+  queryFn: () => fetchPosts(debouncedSearch.value),
 });
 
 const posts = computed(() => postsQuery.data.value ?? []);
-
-const deleteMutation = useMutation({
-  mutationFn: deletePost,
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ["posts"] });
-  },
-});
-
-const removePost = (slug) => {
-  if (confirm("Удалить пост?")) {
-    deleteMutation.mutate(slug);
-  }
-};
 
 const { getCategoryName } = useCategoriesMap();
 </script>
@@ -64,9 +58,6 @@ const { getCategoryName } = useCategoriesMap();
               <RouterLink :to="`/posts/${post.slug}/edit`"
                 ><img class="w-5" src="../../assets/edit.png" alt=""
               /></RouterLink>
-              <button class="cursor-pointer" @click="removePost(post.slug)">
-                <img class="w-5" src="../../assets/recycle-bin.png" alt="" />
-              </button>
             </div>
 
             <div v-if="post.image_url" class="flex justify-center mb-5">
